@@ -25,7 +25,7 @@ use newdb;
 select * from employees
 order by salary desc 
 limit  1 offset  1;   ----- This is alternative most of the time we didn't use this 
-
+----------------------------------------------------------------------------------------------
 explanation 2:-
 use hr
 select * from (select *, dense_rank () over(order  by salary desc )as drn
@@ -33,11 +33,11 @@ from employees
 )as subquery
 where drn = 2   ----dense rank (hat assigns a consecutive rank to each row within a result set, 
 with no gaps in the ranking values even when there are ties. ) 
-
+-------------------------------------------------------------------------------------------------
 explanation :-3
 select max(salary) from employees
 where salary <(select max(salary) from employees);
-
+----------------------------------------------------------------------
 explanation :3    (best example)
 with cte as (
          select *, dense_rank() over (order by salary desc) as H_salary 
@@ -45,17 +45,13 @@ with cte as (
          ) 
          select * from cte
          where H_salary = 2;
-
+------------------------------------------------------------------
+ Explanation :-
 SELECT * FROM employees
 ORDER BY salary DESC
 LIMIT 1 OFFSET 1;
-
-INSERT INTO employees
-VALUES
-(11, 'zara', 'it', 63000)
-
-
-
+-------------------------------------------------------
+explanation 4:-
 select * from (select * ,dense_rank() over (partition by department order by salary desc) 
 AS rnk  from employees) A
 where rnk=2
