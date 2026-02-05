@@ -36,3 +36,32 @@ with select all (*,)
 we used subquery by using dense rank and over with salary by desc by closing sub query 
 and by using where clause with = 3 --- we get a result 
 ---Note :- dense rank () will it never skips a rank when there are ties)
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+Question -2 New challange .
+    find the employee details who has the highest salary from each department ??
+
+Answer :- 
+          select Name,Department,Salary from 
+          (
+        select *,
+        dense_rank() over ( partition by Department order by Salary desc) as drn 
+        from employees
+        ) as subquery 
+        where drn = 1;
+
+Explnanation :- By using subquery , we can filter the top salary with departments by making a new dense rank coloumn 
+            and by using select name, department , salary from will be deteermine that ,
+         you are telling the database to retrieve specific columns for every row in that table. show the perfect results
+
+
+
+
+
+
+
+
+
+
+
