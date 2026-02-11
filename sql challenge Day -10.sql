@@ -36,3 +36,34 @@ select *,
    else 'Low'
    end as SalaryCategory
  from employees;
+
+----->>>  TASK: Find the count of employee for each salary category ???>>---------
+
+with cte as(
+SELECT *,
+	CASE 
+		WHEN salary > 70000 THEN 'High'
+		WHEN salary BETWEEN 50000 AND 70000 THEN 'Medium'
+		ELSE 'Low'
+	END as salary_category
+FROM Employees
+)
+select salary_category, count(*) as frequency
+from cte
+group by salary_category;
+
+Explanation :- first it will follow up and get a resoultion in case statement like higher , average ,lower 
+Then it will go to select salary_category, count(EmployeeID) as total_count
+from cte 
+group by salary_category ; and will form a temporary table and we get a result 
+
+
+
+
+
+
+
+
+
+
+
